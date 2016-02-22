@@ -1,6 +1,5 @@
 var express = require('express');
 var router = express.Router();
-var uuid = require('node-uuid');
 
 // Require models
 var RefreshToken = require('../lib/models/refreshtoken');
@@ -155,7 +154,6 @@ router.post('/token', function(req, res) {
         }
 
         var _refreshToken = new RefreshToken({
-          token: uuid.v4(),
           userId: code.userId
         });
         _refreshToken.save();
@@ -270,8 +268,6 @@ router.get('/userinfo', authorize, function(req, res) {
 /* GET Test route to create a new Client  */
 router.get('/', function(req, res, next) {
   var client = new Client({
-    clientId: uuid.v4(),
-    clientSecret: uuid.v4(),
     name: 'Test',
     userId: 1,
     scope: 'openid',
